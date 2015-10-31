@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151030193522) do
+ActiveRecord::Schema.define(version: 20151031233518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,9 +22,14 @@ ActiveRecord::Schema.define(version: 20151030193522) do
     t.string   "type"
     t.text     "details"
     t.string   "size"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "rescuer_id"
+    t.integer  "adoptant_id"
   end
+
+  add_index "animals", ["adoptant_id"], name: "index_animals_on_adoptant_id", using: :btree
+  add_index "animals", ["rescuer_id"], name: "index_animals_on_rescuer_id", using: :btree
 
   create_table "conversations", force: :cascade do |t|
     t.datetime "created_at", null: false

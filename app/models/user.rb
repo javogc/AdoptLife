@@ -1,4 +1,10 @@
 class User < ActiveRecord::Base
-  has_and_belongs_to_many :events
-  has_and_belongs_to_many :conversations
+  has_many :events
+  has_many :conversations
+  has_many :rescued_animals,
+            :class_name => 'Animal',
+            :foreign_key => 'rescuer_id'
+  has_many :adopted_animals,
+            :class_name => 'Animal',
+            :foreign_key => 'adoptant_id'
 end
