@@ -1,0 +1,24 @@
+<h1>Animals#edit</h1>
+<p>Find me in app/views/animals/edit.html.erb</p>
+<%= form_for(@animal, html: { multipart: true }) do |f| %>
+
+  <%=f.label :photo %>
+  <%= image_tag @animal.photo.url if @animal.photo? %>
+  <%=f.file_field :photo %>
+
+  <%=f.label :name %>
+  <%=f.text_field :name, class: 'form-control'%>
+
+  <%=f.label :species%>
+  <%= select_tag(:species, options_for_species([['Dog', 'dog'], ['Cat', 'cat']])) %>
+
+  <%=f.label :details%>
+  <%= text_area_tag(:details, "My animal is beautiful!!", size: "24x6") %>
+
+  <%=f.label :size%>
+  <%= select_tag(:size, option_for_size([['Big','big'],['Medium','medium'],['Small']])) %>
+
+  <%= hidden_field_tag(:rescuer, "1") %>
+
+  <%=f.submit "Update Animal" %>
+<% end %>

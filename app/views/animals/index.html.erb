@@ -1,0 +1,16 @@
+<h1>Animals#index</h1>
+<p>Find me in app/views/animals/index.html.erb</p>
+<table>
+  <tr>
+    <th>Animal</th>
+    <th>Type</th>
+    <th>Rescuer</th>
+  </tr>
+  <% @animals.each do |animal| %>
+    <tr>
+      <th> <%= link_to animal.name, animal%> </th>
+      <th> <%= animal.species%> </th>
+      <th> <%= animal.rescuer.email %> </th>
+    </tr>
+  <% end %>
+</table>

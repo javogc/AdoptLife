@@ -1,0 +1,8 @@
+<h1>Animals#show</h1>
+<p>Find me in app/views/animals/show.html.erb</p>
+<%= image_tag @animal.photo.url if @animal.photo? %>
+<h2><%= @animal.name %> </h2>
+<h3><%= @animal.species %> </h3>
+<p> <%= @animal.details if @animal.details? %></p>
+<p> <%= @animal.size if @animal.size? %> </p>
+<p> <%= link_to @animal.rescuer.email, @animal.rescuer %> </p>
