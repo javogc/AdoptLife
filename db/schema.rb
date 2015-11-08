@@ -63,8 +63,10 @@ ActiveRecord::Schema.define(version: 20151101003745) do
     t.integer  "zipcode"
     t.integer  "available_time"
     t.integer  "square_meters"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "password_digest"
+    t.string   "password"
   end
 
 end

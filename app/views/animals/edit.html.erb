@@ -7,18 +7,18 @@
   <%=f.file_field :photo %>
 
   <%=f.label :name %>
-  <%=f.text_field :name, class: 'form-control'%>
+  <%=f.text_field :name%>
 
   <%=f.label :species%>
-  <%= select_tag(:species, options_for_species([['Dog', 'dog'], ['Cat', 'cat']])) %>
+  <%= f.select :species, "<option value='dog'>Dog</option><option value='cat'>Cat</option>".html_safe %>
 
   <%=f.label :details%>
-  <%= text_area_tag(:details, "My animal is beautiful!!", size: "24x6") %>
+  <%= f.text_area :details %>
 
   <%=f.label :size%>
-  <%= select_tag(:size, option_for_size([['Big','big'],['Medium','medium'],['Small']])) %>
+  <%= f.select :size, "<option value='big'>Big</option><option value='medium'>Medium</option><option value='small'>Small</option>".html_safe %>
 
-  <%= hidden_field_tag(:rescuer, "1") %>
+  <%= f.hidden_field :rescuer_id, {value:current_user.id}%>
 
   <%=f.submit "Update Animal" %>
 <% end %>

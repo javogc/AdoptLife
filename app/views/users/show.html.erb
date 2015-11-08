@@ -1,0 +1,10 @@
+<% provide(:title, @user.fname) %>
+<h1>
+  <%= gravatar_for @user %>
+  <%= @user.fname %>
+
+  <% if logged_in? %>
+  	<p>HOLA</p>
+  <% end %>
+
+</h1>
