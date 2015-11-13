@@ -6,3 +6,10 @@
 <p> <%= @animal.details if @animal.details? %></p>
 <p> <%= @animal.size if @animal.size? %> </p>
 <p> <%= link_to @animal.rescuer.email, @animal.rescuer %> </p>
+
+<%request=@animal.requests.new()%>
+<% url = "/animals/#{@animal.id}/requests" %>
+<%= form_for([@animal,request],:url => url) do -%>
+  <%= hidden_field_tag :animal_id, @animal.id -%>
+  <%=submit_tag "Request Adoption"%>
+<% end%>

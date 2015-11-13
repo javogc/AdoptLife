@@ -17,7 +17,5 @@
   <%=f.label :size%>
   <%= f.select :size, "<option value='big'>Big</option><option value='medium'>Medium</option><option value='small'>Small</option>".html_safe %>
 
-  <%= f.hidden_field :rescuer_id, {value:current_user.id}%>
-
   <%= f.submit "Create" %>
 <% end %>

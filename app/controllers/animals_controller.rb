@@ -20,6 +20,7 @@ class AnimalsController < ApplicationController
 
   def create
     @animal = Animal.new(animal_params)
+    @animal.rescuer_id = current_user.id
     if @animal.save
       flash[:success] = "Animal created sucessfully"
       redirect_to @animal

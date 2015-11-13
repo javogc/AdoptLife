@@ -2,9 +2,82 @@
 <h1>
   <%= gravatar_for @user %>
   <%= @user.fname %>
-
-  <% if logged_in? %>
-  	<p>HOLA</p>
-  <% end %>
-
 </h1>
+<% if current_user == @user %>
+  <h1> Received Requests </h1>
+  <%if @received_requests%>
+    <% @received_requests.each do |received| %>
+      <div>
+        <%= image_tag Animal.find(received.animal_id).photo.url Animal.find(received.animal_id).photo? %>
+        <h2><%= Animal.find(received.animal_id).name %></h2>
+        <% status = received.status %>
+        <h2><% case status when "sent"%>
+          Recibido de
+          <%=link_to received.sender.fname, received.sender%></h2>
+        <%when "accepted"%>
+          Aceptado con
+          <%=link_to received.sender.fname, received.sender%></h2>
+        <%when "denied" %>
+          Negado</h2>
+        <% end %>
+        <%= form_for received, method: 'put' do -%>
+          <%= hidden_field_tag :action, 'accept' -%>
+          <%= hidden_field_tag :adoptant, received.sender_id -%>
+          <%= hidden_field_tag :status, 'accepted' -%>
+          <%= submit_tag 'Accept' -%>
+        <%- end -%>
+        <%= form_for received, method: 'put' do -%>
+          <%= hidden_field_tag :action, 'deny' -%>
+          <%= hidden_field_tag :status, 'denied' -%>
+          <%= submit_tag 'Deny' -%>
+        <%- end -%>
+      </div>
+      <% end %>
+    <% end %>
+
+    <h1> Sent Requests </h1>
+    <% if @received_requests%>
+      <%@received_requests.each do |sent| %>
+        <div>
+          <%= image_tag Animal.find(sent.animal_id).photo.url if Animal.find(sent.animal_id).photo? %>
+          <h2><%= Animal.find(sent.animal_id).name %></h2>
+          <% status = sent.status %>
+          <h2><% case status when "sent"%>
+            Enviado a
+            <%=link_to sent.sender.fname, sent.sender%></h2>
+          <%when "accepted"%>
+            Aceptado por
+            <%=link_to sent.sender.fname, sent.sender%></h2>
+          <%when "denied" %>
+            Negado</h2>
+          <% end %>
+        </div>
+        <% end %>
+      <%end%>
+<%end%>
+
+<h1> Adopted Animals </h1>
+<% if @adopted_animals%>
+  <%@adopted_animals.each do |adopted| %>
+    <div>
+      <%= image_tag adopted.photo.url if adopted.photo? %>
+      <h2><%=link_to adopted.name, adopted %></h2>
+      <h3><%= adopted.species %></h3>
+      <h3><%= adopted.details %></h3>
+      <h3><%= adopted.size %></h3>
+    </div>
+  <% end %>
+<%end%>
+
+<h1> Rescued Animals </h1>
+<% if @rescued_animals %>
+  <%@rescued_animals.each do |rescued| %>
+    <div>
+      <%= image_tag rescued.photo.url if rescued.photo? %>
+      <h2><%=link_to rescued.name, rescued %></h2>
+      <h3><%= rescued.species %></h3>
+      <h3><%= rescued.details %></h3>
+      <h3><%= rescued.size %></h3>
+    </div>
+  <%end%>
+<%end%>
