@@ -8,6 +8,7 @@ class AnimalsController < ApplicationController
 
   def show
     @animal = Animal.find(params[:id])
+    @alreadyBookmarked = @animal.bookmarkers.include? current_user
   end
 
   def edit

@@ -13,3 +13,11 @@
   <%= hidden_field_tag :animal_id, @animal.id -%>
   <%=submit_tag "Request Adoption"%>
 <% end%>
+
+<% if !@alreadyBookmarked %>
+  <%= form_for current_user, method: 'put' do -%>
+    <%= hidden_field_tag :action, 'addBookmark' -%>
+    <%= hidden_field_tag :animal_to_bookmark, @animal.id -%>
+    <%= submit_tag 'Bookmark' -%>
+  <%- end -%>
+<% end %>

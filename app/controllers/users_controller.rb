@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     @sent_requests = Request.where(sender_id: params[:id])
     @adopted_animals = Animal.where(adoptant_id: params[:id])
     @rescued_animals = Animal.where(rescuer_id: params[:id])
+    @bookmarked_animals = @user.bookmarked_animals
   end
 
   def new
@@ -34,12 +35,14 @@ class UsersController < ApplicationController
   end
 
    def update
-    @user = User.find(params[:id])
-    if @user.update_attributes(user_params)
-      # Handle a successful update.
-    else
-      render 'edit'
+    user = User.find(params[:id])
+    case params[:commit]
+    when 'Remove Bookmark'
+      user.bookmarked_animals.delete(Animal.find(params[:animal_to_remove]))
+    when 'Bookmark'
+      user.bookmarked_animals << Animal.find(params[:animal_to_bookmark])
     end
+    redirect_to @user
   end
 
   private

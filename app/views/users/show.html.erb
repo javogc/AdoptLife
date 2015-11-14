@@ -81,3 +81,21 @@
     </div>
   <%end%>
 <%end%>
+
+<h1> Bookmarked Animals </h1>
+<% if @bookmarked_animals %>
+  <%@bookmarked_animals.each do |bookmarked| %>
+    <div>
+      <%= image_tag bookmarked.photo.url if bookmarked.photo? %>
+      <h2><%=link_to bookmarked.name, bookmarked %></h2>
+      <h3><%= bookmarked.species %></h3>
+      <h3><%= bookmarked.details %></h3>
+      <h3><%= bookmarked.size %></h3>
+      <%= form_for @user, method: 'put' do -%>
+        <%= hidden_field_tag :action, 'removeBookmark' -%>
+        <%= hidden_field_tag :animal_to_remove, bookmarked.id -%>
+        <%= submit_tag 'Remove Bookmark' -%>
+      <%- end -%>
+    </div>
+  <%end%>
+<%end%>
