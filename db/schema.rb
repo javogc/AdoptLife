@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113212408) do
+ActiveRecord::Schema.define(version: 20151113231010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 20151113212408) do
 
   add_index "animals", ["adoptant_id"], name: "index_animals_on_adoptant_id", using: :btree
   add_index "animals", ["rescuer_id"], name: "index_animals_on_rescuer_id", using: :btree
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "animal_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "bookmarks", ["animal_id"], name: "index_bookmarks_on_animal_id", using: :btree
+  add_index "bookmarks", ["user_id"], name: "index_bookmarks_on_user_id", using: :btree
 
   create_table "conversations", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -82,4 +92,6 @@ ActiveRecord::Schema.define(version: 20151113212408) do
     t.string   "password"
   end
 
+  add_foreign_key "bookmarks", "animals"
+  add_foreign_key "bookmarks", "users"
 end
