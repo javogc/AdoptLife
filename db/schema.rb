@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151101003745) do
+ActiveRecord::Schema.define(version: 20151116084934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "animal_attendants", force: :cascade do |t|
+    t.integer  "animal_id"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "animal_attendants", ["animal_id"], name: "index_animal_attendants_on_animal_id", using: :btree
+  add_index "animal_attendants", ["event_id"], name: "index_animal_attendants_on_event_id", using: :btree
 
   create_table "animals", force: :cascade do |t|
     t.string   "name"
@@ -31,10 +41,30 @@ ActiveRecord::Schema.define(version: 20151101003745) do
   add_index "animals", ["adoptant_id"], name: "index_animals_on_adoptant_id", using: :btree
   add_index "animals", ["rescuer_id"], name: "index_animals_on_rescuer_id", using: :btree
 
+  create_table "bookmarks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "animal_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "bookmarks", ["animal_id"], name: "index_bookmarks_on_animal_id", using: :btree
+  add_index "bookmarks", ["user_id"], name: "index_bookmarks_on_user_id", using: :btree
+
   create_table "conversations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "event_organizers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "event_organizers", ["event_id"], name: "index_event_organizers_on_event_id", using: :btree
+  add_index "event_organizers", ["user_id"], name: "index_event_organizers_on_user_id", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.date     "date"
@@ -50,6 +80,22 @@ ActiveRecord::Schema.define(version: 20151101003745) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "requests", force: :cascade do |t|
+    t.string   "status"
+    t.integer  "animal_id"
+    t.integer  "recipient_id"
+    t.integer  "sender_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.date     "date"
+    t.time     "time"
+    t.string   "location"
+  end
+
+  add_index "requests", ["animal_id"], name: "index_requests_on_animal_id", using: :btree
+  add_index "requests", ["recipient_id"], name: "index_requests_on_recipient_id", using: :btree
+  add_index "requests", ["sender_id"], name: "index_requests_on_sender_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
@@ -69,4 +115,10 @@ ActiveRecord::Schema.define(version: 20151101003745) do
     t.string   "password"
   end
 
+  add_foreign_key "animal_attendants", "animals"
+  add_foreign_key "animal_attendants", "events"
+  add_foreign_key "bookmarks", "animals"
+  add_foreign_key "bookmarks", "users"
+  add_foreign_key "event_organizers", "events"
+  add_foreign_key "event_organizers", "users"
 end
