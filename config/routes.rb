@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :requests, only: [:new, :create]
   end
   get 'sessions/new'
+  resources :events
 
    #root             'static_pages#home'
   #get 'help'    => 'static_pages#help'

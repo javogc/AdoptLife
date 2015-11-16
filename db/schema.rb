@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113231010) do
+ActiveRecord::Schema.define(version: 20151115165406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "animal_attendants", force: :cascade do |t|
+    t.integer  "animal_id"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "animal_attendants", ["animal_id"], name: "index_animal_attendants_on_animal_id", using: :btree
+  add_index "animal_attendants", ["event_id"], name: "index_animal_attendants_on_event_id", using: :btree
 
   create_table "animals", force: :cascade do |t|
     t.string   "name"
@@ -45,6 +55,16 @@ ActiveRecord::Schema.define(version: 20151113231010) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "event_organizers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "event_organizers", ["event_id"], name: "index_event_organizers_on_event_id", using: :btree
+  add_index "event_organizers", ["user_id"], name: "index_event_organizers_on_user_id", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.date     "date"
@@ -92,6 +112,10 @@ ActiveRecord::Schema.define(version: 20151113231010) do
     t.string   "password"
   end
 
+  add_foreign_key "animal_attendants", "animals"
+  add_foreign_key "animal_attendants", "events"
   add_foreign_key "bookmarks", "animals"
   add_foreign_key "bookmarks", "users"
+  add_foreign_key "event_organizers", "events"
+  add_foreign_key "event_organizers", "users"
 end

@@ -6,4 +6,6 @@ class Animal < ActiveRecord::Base
   has_many :events
   has_many :requests
   mount_uploader :photo, PictureUploader
+  has_many :animal_attendants
+  has_many :events, :through => :animal_attendants
 end
