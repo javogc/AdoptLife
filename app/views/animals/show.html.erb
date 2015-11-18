@@ -14,6 +14,17 @@
   <%=submit_tag "Request Adoption"%>
 <% end%>
 
+<%request=@animal.requests.new()%>
+<% url = "/animals/#{@animal.id}/requests"%>
+<%= form_for([@animal,request],:url => url) do |f| %>
+  <%= hidden_field_tag :animal_id, @animal.id %>
+  <%= f.date_select(:date) %>
+  <%= f.time_select(:time) %>
+  <%= f.label :location %>
+  <%= f.text_field(:location) %>
+  <%= submit_tag "Request Meetup"%>
+<%end%>
+
 <% if !@alreadyBookmarked %>
   <%= form_for current_user, method: 'put' do -%>
     <%= hidden_field_tag :action, 'addBookmark' -%>
