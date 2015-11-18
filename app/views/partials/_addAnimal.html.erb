@@ -1,0 +1,23 @@
+<h1>Animals#create</h1>
+<p>Find me in app/views/animals/create.html.erb</p>
+<%= form_for(@animal, html: { multipart: true }) do |f| %>
+
+  <%=f.label :photo %>
+  <%=f.file_field :photo %>
+
+  <%=f.label :name %>
+  <%=f.text_field :name%>
+
+  <%=f.label :species%>
+  <%= f.select :species, "<option value='dog'>Dog</option><option value='cat'>Cat</option>".html_safe %>
+
+  <%=f.label :details%>
+  <%= f.text_area :details, { value: "Hi"} %>
+
+  <%=f.label :size%>
+  <%= f.select :size, "<option value='big'>Big</option><option value='medium'>Medium</option><option value='small'>Small</option>".html_safe %>
+
+  <%= f.hidden_field :rescuer_id, {value:current_user.id}%>
+
+  <%= f.submit "Create" %>
+<% end %>

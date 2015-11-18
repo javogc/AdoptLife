@@ -5,24 +5,11 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-
-  <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="Logo">Adopt Life</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-       <li><%= link_to "Inicio",    root_path %></li>
-        <li><%= link_to "Eventos"%></li>
-        <li><%= link_to "Solicitudes" %></li>
-        <li><%= link_to "Perfil",    current_user %></li>
-      
-      </ul>
-    </div>
-  </nav>
         
 </head>
 <body>
 
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="js/materialize.js"></script>
 
   <div id="index-banner" class="parallax-container" style="background-image:url('/assets/banner1.jpg')">
@@ -33,13 +20,27 @@
         <div class="row center">
           <h5 class="header col s12 light">Dandole a las mascotas una nueva vida</h5>
         </div>
+       <!--  <div class="row center">
+          <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
+        </div> -->
         <br><br>
 
       </div>
     </div>
-  </div> -->
+  </div>
 
 
+
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<ul class="animals">
+  <% @animals.each do |animals| %>
+    <li>
+      <%= link_to animal.name, animal %>
+    </li>
+  <% end %>
+</ul>
 
 <%#= link_to 'Add user', new_user_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
 

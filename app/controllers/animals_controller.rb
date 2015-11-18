@@ -35,6 +35,8 @@ class AnimalsController < ApplicationController
     end
   end
 
+
+
   def delete
   end
 
