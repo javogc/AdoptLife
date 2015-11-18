@@ -31,16 +31,6 @@
 
 
 
-<% provide(:title, 'All users') %>
-<h1>All users</h1>
-
-<ul class="animals">
-  <% @animals.each do |animals| %>
-    <li>
-      <%= link_to animal.name, animal %>
-    </li>
-  <% end %>
-</ul>
 
 <%#= link_to 'Add user', new_user_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
 

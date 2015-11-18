@@ -1,0 +1,7 @@
+<h1>Request#new</h1>
+<p>Find me in app/views/request/new.html.erb</p>
+<%= url = "/animals/#{@request.animal_id}/requests" %>
+<%= form_for([@request.animal,@request],:url => url) do |f|%>
+  
+  <%=f.submit "Send"%>
+<% end%>

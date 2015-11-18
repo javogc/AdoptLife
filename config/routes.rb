@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
 
 
+  resources :requests, only: [:index, :edit, :show, :destroy, :update, :put]
 
-  resources :animals
+  resources :animals do
+    resources :requests, only: [:new, :create]
+  end
   get 'sessions/new'
+  resources :events
 
   root             'static_pages#home'
   #get 'help'    => 'static_pages#help'

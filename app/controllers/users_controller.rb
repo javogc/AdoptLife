@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
-  before_action :logged_in_user , only: [:show, :edit, :update]
-  before_action :correct_user ,only: [:show,:edit, :update]
+  before_action :logged_in_user , only: [:edit, :update]
+  before_action :correct_user ,only: [:edit, :update]
 
 	def index
         @maximo = 6
@@ -9,6 +9,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @received_requests = Request.where(recipient_id: params[:id])
+    @sent_requests = Request.where(sender_id: params[:id])
+    @adopted_animals = Animal.where(adoptant_id: params[:id])
+    @rescued_animals = Animal.where(rescuer_id: params[:id])
+    @bookmarked_animals = @user.bookmarked_animals
   end
 
   def new
@@ -31,12 +36,14 @@ class UsersController < ApplicationController
   end
 
    def update
-    @user = User.find(params[:id])
-    if @user.update_attributes(user_params)
-      # Handle a successful update.
-    else
-      render 'edit'
+    user = User.find(params[:id])
+    case params[:commit]
+    when 'Remove Bookmark'
+      user.bookmarked_animals.delete(Animal.find(params[:animal_to_remove]))
+    when 'Bookmark'
+      user.bookmarked_animals << Animal.find(params[:animal_to_bookmark])
     end
+    redirect_to @user
   end
 
     def new_user
@@ -53,12 +60,7 @@ class UsersController < ApplicationController
                                    :password_confirmation, :addrline1, :addrline2)
 	end
 
-  def logged_in_user
-      unless logged_in?
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
-    end
+
 
   def correct_user
       @user = User.find(params[:id])

@@ -4,11 +4,22 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
 
-  def new_release
-    respond_to do |format|
-      format.html
-      format.js
+
+  # def new_release
+  #   respond_to do |format|
+  #     format.html
+  #     format.js
+  #   end
+  # end
+
+
+  private
+
+  def logged_in_user
+      unless logged_in?
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
     end
-  end
 
 end
