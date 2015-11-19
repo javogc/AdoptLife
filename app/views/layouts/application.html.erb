@@ -14,8 +14,7 @@
         <li><%= link_to "Eventos"%></li>
         <li><%= link_to "Solicitudes" %></li>
         <li><%= link_to "Perfil",    current_user %></li>
-        <li><%= link_to "Log out", logout_path, method: "delete" %></li>
-
+        <li><%= link_to "Log out", logout_path, method: "delete" %> </li>
       </ul>
     </div>
   </nav>
@@ -44,6 +43,8 @@
 <%#= link_to 'Add user', new_user_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
 
 <div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+<%= yield %>
+ <%# debug(params) if Rails.env.development? %>
 
 </body>
 </html>
