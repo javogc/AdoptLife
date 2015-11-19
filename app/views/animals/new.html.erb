@@ -1,21 +1,42 @@
-<h1>Animals#create</h1>
-<p>Find me in app/views/animals/create.html.erb</p>
-<%= form_for(@animal, html: { multipart: true }) do |f| %>
 
-  <%=f.label :photo %>
-  <%=f.file_field :photo %>
 
-  <%=f.label :name %>
-  <%=f.text_field :name%>
+<% provide(:title, 'Add animal') %>
+<h1>Add animal</h1>
 
-  <%=f.label :species%>
-  <%= f.select :species, "<option value='dog'>Dog</option><option value='cat'>Cat</option>".html_safe %>
 
-  <%=f.label :details%>
-  <%= f.text_area :details, { value: "Hi"} %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@animal) do |f| %>
 
-  <%=f.label :size%>
-  <%= f.select :size, "<option value='big'>Big</option><option value='medium'>Medium</option><option value='small'>Small</option>".html_safe %>
+      <%=f.label :photo %>
+      <%=f.file_field :photo, class: 'form-control'%>
+      <br>
+      <br>
+      <%=f.label :name %>
+      <%=f.text_field :name, class: 'form-control' %>
 
-  <%= f.submit "Create" %>
-<% end %>
+
+      <%=f.label :species%>
+      <%= f.select :species, "<option value='dog'>Dog</option><option value='cat'>Cat</option>".html_safe, class: 'form-control'  %>
+      <br>
+      <br>
+      <%=f.label :details%>
+      <%= f.text_area :details,class: 'form-control'  %>
+      <br>
+
+      <%=f.label :size%>
+      <%= f.select(:size, options_for_select([['Big', 1], ['Medium', 2], ['Small', 3]])) %>
+
+    
+    <%= f.select :size, "<option value='big'>Big</option><option value='medium'>Medium</option><option value='small'>Small</option>".html_safe %>
+    <br>
+
+     <%= f.hidden_field :rescuer_id, {value:current_user.id}%>
+     <br>
+      
+      <%= f.submit "Rescue pet", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+

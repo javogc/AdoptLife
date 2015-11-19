@@ -41,6 +41,8 @@ class AnimalsController < ApplicationController
     end
   end
 
+
+
   def delete
     present_owner
     Animal.find(params[:id]).destroy

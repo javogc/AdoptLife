@@ -1,0 +1,87 @@
+@import "materialize/components/color";
+$primary-color: color("teal", "lighten-2") !default;
+
+@import "materialize";
+@import 'slick';
+@import 'slick-theme';
+
+
+.scroller {
+  div {
+    text-align: center;
+    font-size: 30px;
+  }
+}
+
+.slick-prev::before, .slick-next::before {
+  color: #000;
+}
+
+.slick-next {
+  right: -5px;
+}
+
+.slick-prev {
+  left: -5px;
+}
+
+
+body, html
+{
+    background-color: #EDEDED !important;
+}
+
+.intro
+{
+    text-align: center;
+    padding-top: 13%;
+    padding-bottom: 13%;
+    margin-bottom: 50px;
+}
+
+.intro h1
+{
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.intro h5
+{
+    text-transform: uppercase;
+    background-color: #f5f5f5;
+    padding: 10px;
+    color: #333333;
+    display: inline-block;
+    font-size: 32px;
+}
+
+
+.about .col
+{
+    margin-bottom: 24px;
+}
+
+.about h5
+{
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.about h6
+{
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 45px;
+}
+
+.about hr
+{
+    width: 40px;
+    margin-bottom: 45px;
+}
+
+.about .card
+{
+    text-align: center;
+}

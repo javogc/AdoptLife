@@ -1,3 +1,61 @@
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+ <div class="container about">
+        <h5><%= @user.fname %></h5>
+        <hr>
+        <div class="row">
+          <div class="col s12 m4 l4">
+            <h6>Perfil</h6>
+            <div class="card #EDEDED">
+              <div class="card-content white-text">
+                <%= gravatar_for @user %>
+       
+              </div>
+            </div>
+          </div>
+          <div class="col s12 m4 l4">
+            
+          </div>
+          <div class="col s12 m4 l4">
+            <h6>Datos</h6>
+            <ul class="collapsible">
+              <li class="active">
+                <div class="collapsible-header"><i class="large material-icons">email</i>Correo</div>
+                <div class="collapsible-body"><p><%= @user.email%> </p></div>
+              </li>
+              <li>
+                <div class="collapsible-header"><i class="large material-icons">room</i>Direccion</div>
+                <div class="collapsible-body"><p><%= @user.addrline1 +  @user.addrline2%> </div>
+              </li>
+              <li>
+                <div class="collapsible-header"><i class="large material-icons">aspect_ratio</i>Metros Cuadrados</div>
+                <div class="collapsible-body"><p><%= @user.square_meters%></p></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+ <h3 class="header center teal-text text-lighten-2">Tus mascotas adoptadas: </h3>
+
+<% @user.rescued_animals.each do |animal| %>
+	<%= render partial: "partials/animal", object: animal %>
+<% end %>
+
+<h3 class="header center teal-text text-lighten-2"> Tus mascotas dadas en adopcion: </h3>
+
+<% @user.adopted_animals.each do |animal| %>
+  <%= render partial: "partials/animal", object: animal %>
+<% end %>
+
+
+<script type="text/javascript">
+	 $(document).ready(function(){
+            $('.collapsible').collapsible();
+          });
+</script>
+
+
 <% provide(:title, @user.fname) %>
 <h1>
   <%= gravatar_for @user %>

@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_action :correct_user ,only: [:edit, :update]
 
 	def index
+        @maximo = 6
 	end
 
   def show
@@ -45,6 +46,13 @@ class UsersController < ApplicationController
     redirect_to @user
   end
 
+    def new_user
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
   private
 
 	def user_params
@@ -58,5 +66,6 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       redirect_to(current_user) unless @user == current_user
   end
+
 
 end
