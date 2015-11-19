@@ -3,8 +3,8 @@ class RequestsController < ApplicationController
 
   def index
     @user = current_user
-    @received_requests = Request.where(recipient_id: current_user.id)
-    @sent_requests = Request.where(sender_id: current_user.id)
+    @received_requests = Request.find_by recipient_id: current_user.id
+    @sent_requests = Request.find_by sender_id: current_user.id
   end
 
   def show
@@ -12,9 +12,13 @@ class RequestsController < ApplicationController
 
   def create
     animal = Animal.find(params[:animal_id])
-
-    request = animal.requests.new()
-    request.status = "sent"
+    if(params[:commit]=="Request Adoption")
+      request = animal.requests.new()
+      request.status = "sent for adoption"
+    elsif (params[:commit]=="Request Meetup")
+      request = animal.requests.new(request_params)
+      request.status = "sent for meetup"
+    end
     request.sender_id = current_user.id
     request.recipient_id = animal.rescuer_id
     if request.save
@@ -28,23 +32,43 @@ class RequestsController < ApplicationController
     @request = animal.requests.build
   end
 
-  def delete
+  def destroy
+    request = Request.find(params[:request])
+    if(current_user == request.sender)
+      request.destroy
+    else
+      flash[:alert] = "Cannot delete this instance"
+    end
+    redirect_to current_user
   end
 
   def update
     request = Request.find(params[:id])
-    request.status = params[:status]
-    if request.save
-      flash[:success] = "Request sent successfully"
-    end
-    if(params[:status]=='accepted')
+    case params[:commit]
+    when "Accept Adoption"
+      request.status = "accepted adoption"
       animal = Animal.find(request.animal_id)
       animal.adoptant_id = params[:adoptant]
       if animal.save
         flash[:success]=="Adoptant added successfully"
       end
+    when "Deny Adoption"
+      request.status = "denied adoption"
+    when "Propose Changes"
+      request.status = "propose change"
+      request.update_attributes(request_params)
+    when "Accept Meetup"
+      request.status = "accepted meetup"
+    when "Deny Meetup"
+      request.status = "denied meetup"
+    when "Propose More Changes"
+      request.status = "sent for meetup"
+      request.update_attributes(request_params)
     end
-    redirect_to "/requests"
+    if request.save
+      flash[:success] = "Request sent successfully"
+    end
+    redirect_to current_user
   end
 
   def edit
@@ -52,6 +76,6 @@ class RequestsController < ApplicationController
 
   private
   def request_params
-    params.require(:animal_id)
+    params.require(:request).permit(:date,:time,:location)
   end
 end
