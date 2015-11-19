@@ -5,5 +5,5 @@ class Event < ActiveRecord::Base
   has_many :animals, :through => :animal_attendants
 
   validates :date,:name,:addrline1,:addrline2,:description,presence: true
-  validate :name, uniqueness: true
+  validates :name, uniqueness: true
 end
