@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <h1 class="header center teal-text text-lighten-2" ><%= @animal.name %></h1>
 
 
@@ -23,6 +23,17 @@
               <%= hidden_field_tag :animal_id, @animal.id -%>
               <%=submit_tag "Request Adoption"%>
               <% end%> </a>
+
+              <a><%request=@animal.requests.new()%>
+              <% url = "/animals/#{@animal.id}/requests"%>
+              <%= form_for([@animal,request],:url => url) do |f| %>
+                <%= hidden_field_tag :animal_id, @animal.id %>
+                <%= f.date_field :date %>
+                <%= f.time_field :time %>
+                <%= f.label :location %>
+                <%= f.text_field(:location) %>
+                <%= submit_tag "Request Meetup"%>
+              <%end%></a>
             </div>
           </div>
         </div>
@@ -72,54 +83,3 @@
 
 </div>
 
-
-
-<h2> Attending Events </h2>
-
-<h1>Animals#show</h1>
-<p>Find me in app/views/animals/show.html.erb</p>
-<%= image_tag @animal.photo.url if @animal.photo? %>
-<h2><%= @animal.name %> </h2>
-<h3><%= @animal.species %> </h3>
-<p> <%= @animal.details if @animal.details? %></p>
-<p> <%= @animal.size if @animal.size? %> </p>
-<p> <%= link_to @animal.rescuer.email, @animal.rescuer %> </p>
-
-<%request=@animal.requests.new()%>
-<% url = "/animals/#{@animal.id}/requests" %>
-<%= form_for([@animal,request],:url => url) do -%>
-  <%= hidden_field_tag :animal_id, @animal.id -%>
-  <%=submit_tag "Request Adoption"%>
-<% end%>
-
-<%request=@animal.requests.new()%>
-<% url = "/animals/#{@animal.id}/requests"%>
-<%= form_for([@animal,request],:url => url) do |f| %>
-  <%= hidden_field_tag :animal_id, @animal.id %>
-  <%= f.date_select :date %>
-  <%= f.time_select :time %>
-  <%= f.label :location %>
-  <%= f.text_field(:location) %>
-  <%= submit_tag "Request Meetup"%>
-<%end%>
-
-<% if !@alreadyBookmarked %>
-  <%= form_for current_user, method: 'put' do -%>
-    <%= hidden_field_tag :action, 'addBookmark' -%>
-    <%= hidden_field_tag :animal_to_bookmark, @animal.id -%>
-    <%= submit_tag 'Bookmark' -%>
-  <%- end -%>
-<% end %>
-
-<h2> Attending Events </h2>
-<% if @attendingEvents %>
-  <% @attendingEvents.each do |event| %>
-    <div>
-      <h2><%=event.name%></h2>
-      <p><%=event.description%></p>
-      <%=event.date.strftime("%A %b %d")%>
-      <p><%=event.addrline1%></p>
-      <p><%=event.addrline2%></p>
-    </div>
-  <%end%>
-<%end%> 

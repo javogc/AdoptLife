@@ -1,0 +1,23 @@
+<div class="col s2">
+        <div class="card" >
+            <div class="card-image" style="height: 200px;">
+              <%= image_tag Animal.find(received.animal_id).photo.url Animal.find(received.animal_id).photo? %>
+            </div>
+
+            <div class="card-content" style="height: 75px;">
+               <p>Name: <%= animal.name %></p>
+               <p><%= Animal.find(received.animal_id).name %></p>
+            </div>
+
+
+            <div class="card-action">
+              <a href="/animals/<%= animal.id %>"><i class="material-icons">more_horiz</i></a>
+              <a href="/animals/<%= animal.id %>/edit"><i class="material-icons">mode_edit</i></a>
+              <%= link_to animal, :confirm => 'Are you sure?', :method => :delete do %> 
+              <i class="material-icons">delete</i>
+              <% end %>
+            </div>
+          </div>
+    </div>
+
+
