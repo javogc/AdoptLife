@@ -1,3 +1,4 @@
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,11 +10,12 @@
   <nav>
     <div class="nav-wrapper">
       <a href="#" class="Logo">Adopt Life</a>
+
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-       <li><%= link_to "Inicio",    root_path %></li>
-        <li><%= link_to "Eventos"%></li>
-        <li><%= link_to "Solicitudes" %></li>
-        <li><%= link_to "Perfil",    current_user %></li>
+        <li><a href="sass.html"><i class="large material-icons">search</i></a></li>
+       <li><%= link_to "Inicio", root_path %></li>
+        <li><%= link_to "Eventos", events_path %></li>
+        <li><%= link_to "Perfil", current_user %></li>
       
       </ul>
     </div>
@@ -41,7 +43,7 @@
 
 
 
-<%#= link_to 'Add user', new_user_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
+<%#= porque vergas tienes dos "yields"? BORRE UN PEDO, NO DEBRIA ESTAS  link_to 'Add user', new_user_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
 
 <!-- <div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div> -->
 <%= yield %>

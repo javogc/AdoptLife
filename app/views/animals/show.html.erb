@@ -1,28 +1,79 @@
-<h1>Animals#show</h1>
-<p>Find me in app/views/animals/show.html.erb</p>
-<%= image_tag @animal.photo.url if @animal.photo? %>
-<h2><%= @animal.name %> </h2>
-<h3><%= @animal.species %> </h3>
-<p> <%= @animal.details if @animal.details? %></p>
-<p> <%= @animal.size if @animal.size? %> </p>
-<p> <%= link_to @animal.rescuer.email, @animal.rescuer %> </p>
+<h1 class="header center teal-text text-lighten-2" ><%= @animal.name %></h1>
 
-<%request=@animal.requests.new()%>
-<% url = "/animals/#{@animal.id}/requests" %>
-<%= form_for([@animal,request],:url => url) do -%>
-  <%= hidden_field_tag :animal_id, @animal.id -%>
-  <%=submit_tag "Request Adoption"%>
-<% end%>
 
-<% if !@alreadyBookmarked %>
-  <%= form_for current_user, method: 'put' do -%>
-    <%= hidden_field_tag :action, 'addBookmark' -%>
-    <%= hidden_field_tag :animal_to_bookmark, @animal.id -%>
-    <%= submit_tag 'Bookmark' -%>
-  <%- end -%>
-<% end %>
+ <%= image_tag(@animal.photo.url, :class => "animal_photo_profile") if @animal.photo? %>
 
-<h2> Attending Events </h2>
+<div class="row">
+
+        <div class="col s2 m4">
+          <div class="card">
+            <div class="card-title">
+              <a>Datos: </a>
+            </div>
+            <div class="card-content">
+              <p>Raza: <%= @animal.species %></p>
+              <p>Detalles: <%= @animal.details if @animal.details? %></p>
+              <p>Tamaño: <%= @animal.size if @animal.size? %> </p>
+            </div>
+             <div class="card-action">
+              <a> <%request=@animal.requests.new()%>
+              <% url = "/animals/#{@animal.id}/requests" %>
+              <%= form_for([@animal,request],:url => url) do -%>
+              <%= hidden_field_tag :animal_id, @animal.id -%>
+              <%=submit_tag "Request Adoption"%>
+              <% end%> </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s2 m4">
+          <div class="card">
+            <div class="card-title">
+              <a>Eventos: </a>
+            </div>
+            <div class="card-content">
+              <p><% if @attendingEvents %>
+                <% @attendingEvents.each do |event| %>
+                  <div>
+                    <br>
+                    <p><%=event.name%></p>
+                    <p><%=event.description%></p>
+                    <%=event.date.strftime("%A %b %d")%>
+                    <p><%=event.addrline1%></p>
+                    <p><%=event.addrline2%></p>
+                  </div>
+                <%end%>
+              <%end%></p>
+              <p>Detalles: <%= @animal.details if @animal.details? %></p>
+              <p>Tamaño: <%= @animal.size if @animal.size? %> </p>
+              <br>
+            </div>
+        </div>
+    </div>
+
+    <div class="col s2 m4">
+          <div class="card">
+            <div class="card-title">
+              <a>Favorito: </a>
+             </div>
+             <div class="card-action">
+              <a> <% if !@alreadyBookmarked %>
+                <%= form_for current_user, method: 'put' do -%>
+                  <%= hidden_field_tag :action, 'addBookmark' -%>
+                  <%= hidden_field_tag :animal_to_bookmark, @animal.id -%>
+                  <%= submit_tag 'Agregar' -%>
+                <%- end -%>
+              <% end %> 
+            </a>
+            </div>
+          </div>
+        </div>
+
+</div>
+
+
+
+<!-- <h2> Attending Events </h2>
 <% if @attendingEvents %>
   <% @attendingEvents.each do |event| %>
     <div>
@@ -33,4 +84,4 @@
       <p><%=event.addrline2%></p>
     </div>
   <%end%>
-<%end%>
+<%end%> -->

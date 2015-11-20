@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :correct_user ,only: [:edit, :update]
 
 	def index
-        @maximo = 6
+          @max_row = 12
 	end
 
   def show

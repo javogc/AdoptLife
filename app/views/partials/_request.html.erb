@@ -1,0 +1,27 @@
+  <div class="col s2">
+        <div class="card" >
+            <div class="card-title" style="height: 200px;">
+              <%= image_tag Animal.find(received.animal_id).photo.url Animal.find(received.animal_id).photo? %>
+            </div>
+            <div class="card-content" style="height: 75px;">
+               <p><%= Animal.find(received.animal_id).name %>></p>
+               <% status = received.status %>
+               <p><% case status when "sent"%> Recibido de <%=link_to received.sender.fname, received.sender%></p>
+               <%when "accepted"%>
+              Aceptado con <%=link_to received.sender.fname, received.sender%></p>
+               <%when "denied" %> Negado</p>
+              <% end %>
+              <%= form_for received, method: 'put' do -%>
+              <%= hidden_field_tag :action, 'accept' -%>
+              <%= hidden_field_tag :adoptant, received.sender_id -%>
+              <%= hidden_field_tag :status, 'accepted' -%>
+              <%= submit_tag 'Accept' -%>
+              <%- end -%>
+              <%= form_for received, method: 'put' do -%>
+              <%= hidden_field_tag :action, 'deny' -%>
+              <%= hidden_field_tag :status, 'denied' -%>
+              <%= submit_tag 'Deny' -%>
+              <%- end -%>
+            </div>
+          </div>
+  </div>

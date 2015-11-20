@@ -1,5 +1,5 @@
 class AnimalsController < ApplicationController
-  before_action :logged_in_user , only: [:create,:new, :edit, :update]
+  before_action :logged_in_user , only: [:index, :create,:new, :edit, :update]
   before_action :present_owner , only:[:edit,:update]
 
   def index

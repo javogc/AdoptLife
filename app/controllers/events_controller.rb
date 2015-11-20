@@ -2,6 +2,10 @@ class EventsController < ApplicationController
 
   before_action :logged_in_user, ony: [:new,:edit,:create,:update]
 
+  def index
+    @events = Event.all
+  end
+
   def new
     @event = Event.new
   end

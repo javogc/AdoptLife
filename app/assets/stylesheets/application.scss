@@ -5,6 +5,21 @@ $primary-color: color("teal", "lighten-2") !default;
 @import 'slick';
 @import 'slick-theme';
 
+.animal_photo {
+    width: 500px;
+    padding-bottom: 50px;
+}
+
+.photo_text{
+    padding-left: 30px;
+}
+.animal_photo_profile{
+    width: 500px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 50px;
+}
 
 .scroller {
   div {
@@ -84,4 +99,8 @@ body, html
 .about .card
 {
     text-align: center;
+}
+
+.card-image {
+    
 }

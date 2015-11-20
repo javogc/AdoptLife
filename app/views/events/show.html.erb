@@ -1,31 +1,67 @@
-<h2><%=@event.name%></h2>
-<p><%=@event.description%></p>
-<%=@event.date.strftime("%A %b %d")%>
-<p><%=@event.addrline1%></p>
-<p><%=@event.addrline2%></p>
-<% if @isOrganizer && (@user_rescued_unadopted-@assistingAnimals).length > 0 %>
-  <%= form_for @event, method:'put' do %>
-    <%= hidden_field_tag :action, 'addAnimal' %>
-    <%= collection_check_boxes(:events,:animals,@user_rescued_unadopted-@assistingAnimals,:id,:name)%>
-    <%= submit_tag 'Add Animals' %>
-  <%end%>
-<%end%>
-<% if @assistingAnimals%>
-  <h1>Assisting Animals </h1>
-  <%@assistingAnimals.each do |assistant| %>
-    <div>
-      <%= image_tag assistant.photo.url if assistant.photo? %>
-      <h2><%=link_to assistant.name, assistant %></h2>
-      <h3><%= assistant.species %></h3>
-      <h3><%= assistant.details %></h3>
-      <h3><%= assistant.size %></h3>
-      <% if assistant.rescuer == current_user %>
-        <%= form_for @event, method:'put' do%>
-          <%= hidden_field_tag :action, 'removeAnimal' %>
-          <%= hidden_field_tag :animal_to_remove, assistant.id %>
-          <%= submit_tag "Remove Animal" %>
-        <%end%>
-      <%end%>
+
+<h2 class="header center teal-text text-lighten-2"><%=@event.name%></h2>
+
+<div class= row>
+  <div class="col s2 m4">
+          <div class="card">
+            <div class="card-title">
+              <a>Detalles </a>
+            </div>
+            <div class="card-content">
+              <p>Direccion: <%=@event.addrline1%> <%=@event.addrline2%></p>
+              <p>Fecha: <%=@event.date.strftime("%A %b %d")%></p>
+              <p>Descripción: <%=@event.description%></p>
+            </div>
+             <div class="card-action">
+              <a> <% if (@user_rescued_unadopted-@assistingAnimals).length > 0 %>
+                    <%= form_for @event, method:'put' do %>
+                    <%= hidden_field_tag :action, 'addAnimal' %>
+                    <%= collection_check_boxes(:events,:animals,@user_rescued_unadopted-@assistingAnimals,:id,:name)%>
+                    <br>
+                    <br>
+                    <%= submit_tag 'Add Animals' %>
+                  <%end%>
+                <%end%> 
+              </a>
+            </div>
+          </div>
+        </div>
+
+     <div class="col s2 m4">
+          <div class="card">
+            <div class="card-title">
+              <a>Animales invitados: </a>
+            </div>
+            <div class="card-content">
+              <p><% if @assistingAnimals %>
+                <% @assistingAnimals.each do |assistant| %>
+                  <div>
+                    <br>
+                    <p>Nombre: <%=assistant.name%></p>
+                    <p>Raza: <%= assistant.species %></p>
+                    <p>Tamaño: <%= assistant.size %></p>
+                    <p>Dueño <%= assistant.rescuer.fname %> <%= assistant.rescuer.fname %></p>
+                  </div>
+                <%end%>
+              <%end%></p>
+              <br>
+            </div>
+              <div class="card-action">
+              <a> <% if @assistingAnimals%>
+                  <%@assistingAnimals.each do |assistant| %>
+                    <div>
+                      <% if assistant.rescuer == current_user %>
+                        <%= form_for @event, method:'put' do%>
+                          <%= hidden_field_tag :action, 'removeAnimal' %>
+                          <%= hidden_field_tag :animal_to_remove, assistant.id %>
+                          <%= submit_tag "Remove Animal" %>
+                        <%end%>
+                      <%end%>
+                    </div>
+                  <%end%>
+                <%end%>
+              </a>
+            </div>
+        </div>
     </div>
-  <%end%>
-<%end%>
+</div>

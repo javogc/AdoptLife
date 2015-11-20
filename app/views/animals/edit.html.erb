@@ -1,22 +1,27 @@
-<h1>Animals#edit</h1>
-<p>Find me in app/views/animals/edit.html.erb</p>
+<h2 class="header center teal-text text-lighten-2">Edit info</h2>
+
 <%= form_for(@animal, html: { multipart: true }) do |f| %>
 
+  <p class="photo_text">Current photo: </p>
   <%=f.label :photo %>
-  <%= image_tag @animal.photo.url if @animal.photo? %>
-  <%=f.file_field :photo %>
+  <%= image_tag(@animal.photo.url, :class => "animal_photo") if @animal.photo? %>
+  <br>
 
+  <%=f.file_field :photo %>
+  <br>
+  <br>
   <%=f.label :name %>
   <%=f.text_field :name%>
-
+  <br>
   <%=f.label :species%>
   <%= f.select :species, "<option value='dog'>Dog</option><option value='cat'>Cat</option>".html_safe %>
-
+  <br>
   <%=f.label :details%>
   <%= f.text_area :details %>
-
+  <br>
   <%=f.label :size%>
   <%= f.select :size, "<option value='big'>Big</option><option value='medium'>Medium</option><option value='small'>Small</option>".html_safe %>
-
+  <br>
+  <br>
   <%=f.submit "Update Animal" %>
 <% end %>

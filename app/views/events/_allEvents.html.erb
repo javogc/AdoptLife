@@ -1,0 +1,21 @@
+<div class="row">
+  <%  @events.each do |event| %>
+      <div class="col s2">
+        <div class="card" >
+             <div class="card-title" style="padding-left: 25px;">
+              <a> <%=event.name%> </a>
+            </div>
+            <div class="card-content" >
+                    <p><%=event.description%></p>
+                    <%=event.date.strftime("%A %b %d")%>
+                    <p><%=event.addrline1%></p>
+                    <p><%=event.addrline2%></p>
+            </div>
+            <div class="card-action">
+              <a href="/events/<%= event.id %>"><i class="material-icons">more_horiz</i></a>
+            </div>
+          </div>
+      </div>
+
+  <% end %>
+</div>

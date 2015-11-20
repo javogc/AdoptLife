@@ -1,4 +1,4 @@
- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 
  <div class="container about">
         <h5><%= @user.fname %></h5>
@@ -38,15 +38,21 @@
 
  <h3 class="header center teal-text text-lighten-2">Tus mascotas adoptadas: </h3>
 
-<% @user.rescued_animals.each do |animal| %>
-	<%= render partial: "partials/animal", object: animal %>
-<% end %>
+<div class="row">
+  <% @user.rescued_animals.each do |animal| %>
+  	<%= render partial: "partials/animal", object: animal %>
+  <% end %>
+</div>
+
+
 
 <h3 class="header center teal-text text-lighten-2"> Tus mascotas dadas en adopcion: </h3>
 
-<% @user.adopted_animals.each do |animal| %>
-  <%= render partial: "partials/animal", object: animal %>
-<% end %>
+<div class="row">
+  <% @user.adopted_animals.each do |animal| %>
+    <%= render partial: "partials/animal", object: animal %>
+  <% end %>
+</div>
 
 
 <script type="text/javascript">
@@ -56,42 +62,24 @@
 </script>
 
 
-<% provide(:title, @user.fname) %>
-<h1>
-  <%= gravatar_for @user %>
-  <%= @user.fname %>
-</h1>
+
 <% if current_user == @user %>
-  <h1> Received Requests </h1>
+  <h3 class="header center teal-text text-lighten-2"> Solicitudes recibidas: </h3>
+
+
   <%if @received_requests%>
-    <% @received_requests.each do |received| %>
-      <div>
-        <%= image_tag Animal.find(received.animal_id).photo.url Animal.find(received.animal_id).photo? %>
-        <h2><%= Animal.find(received.animal_id).name %></h2>
-        <% status = received.status %>
-        <h2><% case status when "sent"%>
-          Recibido de
-          <%=link_to received.sender.fname, received.sender%></h2>
-        <%when "accepted"%>
-          Aceptado con
-          <%=link_to received.sender.fname, received.sender%></h2>
-        <%when "denied" %>
-          Negado</h2>
-        <% end %>
-        <%= form_for received, method: 'put' do -%>
-          <%= hidden_field_tag :action, 'accept' -%>
-          <%= hidden_field_tag :adoptant, received.sender_id -%>
-          <%= hidden_field_tag :status, 'accepted' -%>
-          <%= submit_tag 'Accept' -%>
-        <%- end -%>
-        <%= form_for received, method: 'put' do -%>
-          <%= hidden_field_tag :action, 'deny' -%>
-          <%= hidden_field_tag :status, 'denied' -%>
-          <%= submit_tag 'Deny' -%>
-        <%- end -%>
-      </div>
-      <% end %>
-    <% end %>
+
+    <div class="row">
+
+    </div>
+    
+<% end %>
+
+
+
+<% @received_requests.each do |received| %>
+      <!-- Aqui va lo de text-edit -->
+<% end %>
 
     <h1> Sent Requests </h1>
     <% if @received_requests%>
@@ -127,6 +115,7 @@
   <% end %>
 <%end%>
 
+<!-- 
 <h1> Rescued Animals </h1>
 <% if @rescued_animals %>
   <%@rescued_animals.each do |rescued| %>
@@ -138,7 +127,7 @@
       <h3><%= rescued.size %></h3>
     </div>
   <%end%>
-<%end%>
+<%end%> -->
 
 <h1> Bookmarked Animals </h1>
 <% if @bookmarked_animals %>
@@ -157,3 +146,14 @@
     </div>
   <%end%>
 <%end%>
+
+
+  <div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large red">
+      <i class="large mdi-navigation-menu"></i>
+    </a>
+    <ul>
+      <li><a class="btn-floating blue" href="/events/new"><i class="material-icons">local_pizza</i></a></li>
+      <li><a class="btn-floating green" href="/animals/new"><i class="material-icons">plus_one</i></a></li>   
+    </ul>
+  </div>
