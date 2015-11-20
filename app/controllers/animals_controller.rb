@@ -43,7 +43,7 @@ class AnimalsController < ApplicationController
 
 
 
-  def delete
+  def destroy
     present_owner
     Animal.find(params[:id]).destroy
   end
