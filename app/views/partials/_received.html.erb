@@ -1,0 +1,66 @@
+<div class="col s2">
+        <div class="card" >
+            <div class="card-image" style="height: 200px;">
+              <%= image_tag Animal.find(received.animal_id).photo.url Animal.find(received.animal_id).photo? %>
+            </div>
+
+            <div class="card-content" style="height: 420px;">
+               <p>Name: <%= received.status %></p>
+               <p><%= Animal.find(received.animal_id).name %></p>
+               <% status = received.status %>
+               <p><% case status when "sent for adoption"%>
+                    <b>Adopcion</b> Recibido de
+                    <%=link_to received.sender.fname, received.sender%></p>
+                    <%= form_for received, method: 'put' do -%>
+                    <%= hidden_field_tag :action, 'accept' -%>
+                    <%= hidden_field_tag :adoptant, received.sender_id -%>
+                    <%= submit_tag 'Accept Adoption' -%>
+                    <%- end -%>
+                    <%= form_for received, method: 'put' do -%>
+                    <%= hidden_field_tag :action, 'deny' -%>
+                    <%= submit_tag 'Deny Adoption' -%>
+                    <%- end -%>
+                    
+              <%when "sent for meetup"%>
+                  <b>Meetup</b> Recibido de
+                  <%=link_to received.sender.fname, received.sender %></p>
+                  <div>
+                    <%= form_for received, method: 'put' do |f| %>
+                    <%= f.date_field(:date) %>
+                    <%= f.time_field(:time) %>
+                    <%= f.label :location %>
+                    <%= f.text_field(:location) %>
+                    <%= submit_tag "Propose Changes"%>
+                    <%= submit_tag "Accept Meetup" %>
+                    <%= submit_tag "Deny Meetup" %>
+                    <%end%>
+                  </div>    
+
+                <%when "accepted adoption"%>
+                  Aceptado con
+                  <%=link_to received.sender.fname, received.sender%></h2>
+                <%when "denied adoption" %>
+                  Negado</h2>
+                <%when "propose change" %>
+                  Cambio propuesto a
+                  <%=link_to received.sender.fname, received.sender %></h2>
+                  <%= received.date.strftime("Para conocerlo el %d/%m/%Y") %>
+                  <%= received.time.strftime("a las %I:%M%p") %>
+                <%when "accepted meetup" %>
+                  Aceptado con
+                  <%=link_to received.sender.fname, received.sender%></h2>
+                  <%= received.date.strftime("Lo conocerá el %d/%m/%Y") %>
+                  <%= received.time.strftime("a las %I:%M%p") %>
+                <%when "denied meetup" %>
+                  Negado</h2>
+                <% end %>
+                </div>
+            <div class="card-action">
+              
+            </div>
+          </div>
+    </div>
+
+
+
+

@@ -1,0 +1,61 @@
+<div class="col s2">
+        <div class="card" >
+            <div class="card-image" style="height: 200px;">
+              <%= image_tag Animal.find(sent.animal_id).photo.url Animal.find(sent.animal_id).photo? %>
+            </div>
+
+            <div class="card-content" style="height: 420px;">
+               <p>Name: <%= sent.status %></p>
+               <p><%= Animal.find(sent.animal_id).name %></p>
+               <% status = sent.status %>
+               <p><% case status when "sent for adoption"%>
+                    <Enviado a
+                  <%=link_to sent.recipient.fname, sent.recipient%></h2>
+                  <%= form_for sent, method: 'delete' do -%>
+                    <%= hidden_field_tag :action, 'delete' -%>
+                    <%= hidden_field_tag :request, sent.id %>
+                    <%= submit_tag 'Cancel Request' -%>
+                    <% end %>
+              <%when "sent for meetup"%>
+                  <b>Meetup</b> Enviado a
+                  <%=link_to sent.recipient.fname, sent.recipient %></p>
+                  <%= sent.date.strftime("Para conocerlo el %d/%m/%Y") %>
+                  <%= sent.time.strftime("a las %I:%M%p") %>
+                  <%= form_for sent, method: 'delete' do -%>
+                    <%= hidden_field_tag :action, 'delete' -%>
+                    <%= hidden_field_tag :request, sent.id %>
+                    <%= submit_tag 'Cancel Request' -%>
+                  <%- end -%>
+                <%when "accepted adoption"%>
+                  Aceptado por
+            <%=link_to sent.recipient.fname, sent.recipient%></p>
+                <%when "denied adoption" %>
+                  Negado</h2>
+                <%when "propose change" %>
+                        Cambios propuestos por
+                  <%=link_to sent.recipient.fname, sent.recipient%></p>
+                  <div><%= form_for sent, method: 'put' do |f| %>
+                    <%= f.date_field(:date) %>
+                    <%= f.time_field(:time) %>
+                    <%= f.label :location %>
+                    <%= f.text_field(:location) %>
+                    <%= submit_tag "Propose More Changes"%>
+                    <%= submit_tag "Accept Meetup" %>
+                    <%= submit_tag "Deny Meetup" %>
+                  <%end%></div>
+                <%when "accepted meetup" %>
+                  Aceptado por
+            <%=link_to sent.recipient.fname, sent.recipient%></p>
+            <%= sent.date.strftime("Lo conocerás el %d/%m/%Y") %>
+            <%= sent.time.strftime("a las %I:%M%p") %>
+                <%when "denied meetup" %>
+                  Negado</p>
+                <% end %>
+                </div>
+            <div class="card-action">
+              
+            </div>
+          </div>
+    </div>
+
+

@@ -5,7 +5,7 @@ class Animal < ActiveRecord::Base
   has_many :bookmarks, dependent: :destroy
   has_many :requests, inverse_of: :animal, dependent: :destroy
   mount_uploader :photo, PictureUploader
-  has_many :animal_attendants
+  has_many :animal_attendants, dependent: :destroy
   has_many :events, :through => :animal_attendants
 
   validates :name,:species,:details,:size, presence: true

@@ -14,13 +14,21 @@
   <%=f.text_field :name%>
   <br>
   <%=f.label :species%>
-  <%= f.select :species, "<option value='dog'>Dog</option><option value='cat'>Cat</option>".html_safe %>
+  <%= radio_button_tag(:species, "dog") %>
+  <%= label_tag(:species_dog, "Dog") %>
+  <%= radio_button_tag(:species, "cat") %>
+  <%= label_tag(:species_cat, "Cat") %>
   <br>
   <%=f.label :details%>
   <%= f.text_area :details %>
   <br>
   <%=f.label :size%>
-  <%= f.select :size, "<option value='big'>Big</option><option value='medium'>Medium</option><option value='small'>Small</option>".html_safe %>
+  <%= radio_button_tag(:size, "big") %>
+  <%= label_tag(:size_big, "Big") %>
+  <%= radio_button_tag(:size, "medium") %>
+  <%= label_tag(:size_medium, "Medium") %>
+  <%= radio_button_tag(:size, "small") %>
+  <%= label_tag(:size_small, "Small") %>
   <br>
   <br>
   <%=f.submit "Update Animal" %>

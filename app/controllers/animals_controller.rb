@@ -35,7 +35,7 @@ class AnimalsController < ApplicationController
 
   def update
     @animal = Animal.find(params[:id])
-    if @animal.update_attributes(animal_params)
+    if @animal.update_attributes(:species => params[:species], :size => params[:size]) && @animal.update_attributes(animal_params)
       flash[:success] = "Animal updated"
       redirect_to @animal
     else
@@ -48,6 +48,7 @@ class AnimalsController < ApplicationController
   def destroy
     present_owner
     Animal.find(params[:id]).destroy
+    render current_user
   end
 
   private

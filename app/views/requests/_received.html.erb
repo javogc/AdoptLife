@@ -1,28 +1,23 @@
-
-      <div class="col s2">
+<div class="col s2">
         <div class="card" >
             <div class="card-image" style="height: 200px;">
-              <%= image_tag animal.photo.url %>
+              <%= image_tag Animal.find(received.animal_id).photo.url Animal.find(received.animal_id).photo? %>
             </div>
+
             <div class="card-content" style="height: 75px;">
                <p>Name: <%= animal.name %></p>
+               <p><%= Animal.find(received.animal_id).name %></p>
             </div>
+
+
             <div class="card-action">
               <a href="/animals/<%= animal.id %>"><i class="material-icons">more_horiz</i></a>
               <a href="/animals/<%= animal.id %>/edit"><i class="material-icons">mode_edit</i></a>
-              <%= link_to animal, :confirm => 'Are you sure?', :method => :delete do %>
+              <%= link_to animal, :confirm => 'Are you sure?', :method => :delete do %> 
               <i class="material-icons">delete</i>
               <% end %>
             </div>
           </div>
-      </div>
+    </div>
 
 
-
-
-
-<!--    <%= image_tag animal.photo.url %>
-        <div class="caption center-align">
-          <h3>This is our big Tagline!</h3>
-          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-        </div> -->
