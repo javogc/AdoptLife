@@ -17,7 +17,10 @@
 
 
       <%=f.label :species%>
-      <%= f.select :species, "<option value='dog'>Dog</option><option value='cat'>Cat</option>".html_safe, class: 'form-control'  %>
+      <%= radio_button_tag(:species, "dog") %>
+      <%= label_tag(:species_dog, "Dog") %>
+      <%= radio_button_tag(:species, "cat") %>
+      <%= label_tag(:species_cat, "Cat") %>
       <br>
       <br>
       <%=f.label :details%>
@@ -25,18 +28,19 @@
       <br>
 
       <%=f.label :size%>
-      <%= f.select(:size, options_for_select([['Big', 1], ['Medium', 2], ['Small', 3]])) %>
+      <%= radio_button_tag(:size, "big") %>
+      <%= label_tag(:size_big, "Big") %>
+      <%= radio_button_tag(:size, "medium") %>
+      <%= label_tag(:size_medium, "Medium") %>
+      <%= radio_button_tag(:size, "small") %>
+      <%= label_tag(:size_small, "Small") %>
 
-    
-    <%= f.select :size, "<option value='big'>Big</option><option value='medium'>Medium</option><option value='small'>Small</option>".html_safe %>
     <br>
 
      <%= f.hidden_field :rescuer_id, {value:current_user.id}%>
      <br>
-      
+
       <%= f.submit "Rescue pet", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
-
-

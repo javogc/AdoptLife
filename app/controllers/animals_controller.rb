@@ -3,7 +3,7 @@ class AnimalsController < ApplicationController
   before_action :present_owner , only:[:edit,:update]
 
   def index
-    @animals = Animal.all
+    @animals = Animal.where.not(rescuer: current_user)
   end
 
   def show
@@ -22,6 +22,8 @@ class AnimalsController < ApplicationController
 
   def create
     @animal = Animal.new(animal_params)
+    @animal.species = params[:species]
+    @animal.size = params[:size]
     @animal.rescuer_id = current_user.id
     if @animal.save
       flash[:success] = "Animal created sucessfully"

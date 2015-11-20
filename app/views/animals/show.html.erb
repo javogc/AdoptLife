@@ -64,7 +64,7 @@
                   <%= hidden_field_tag :animal_to_bookmark, @animal.id -%>
                   <%= submit_tag 'Agregar' -%>
                 <%- end -%>
-              <% end %> 
+              <% end %>
             </a>
             </div>
           </div>
@@ -96,8 +96,8 @@
 <% url = "/animals/#{@animal.id}/requests"%>
 <%= form_for([@animal,request],:url => url) do |f| %>
   <%= hidden_field_tag :animal_id, @animal.id %>
-  <%= f.date_select :date %>
-  <%= f.time_select :time %>
+  <%= f.date_field :date %>
+  <%= f.time_field :time %>
   <%= f.label :location %>
   <%= f.text_field(:location) %>
   <%= submit_tag "Request Meetup"%>
@@ -122,4 +122,4 @@
       <p><%=event.addrline2%></p>
     </div>
   <%end%>
-<%end%> 
+<%end%>

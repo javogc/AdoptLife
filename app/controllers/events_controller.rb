@@ -11,11 +11,13 @@ class EventsController < ApplicationController
   end
 
   def create
-    event = Event.new(event_params)
-    if event.save
-      event.organizers << current_user
+    @event = Event.new(event_params)
+    exit
+    if @event.save
+      exit
+      @event.organizers << current_user
       flash[:success]="Event created"
-      redirect_to event
+      redirect_to @event
     else
       render 'new'
     end
@@ -57,7 +59,7 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:date,:name,:addrline1,:addrline2)
+    params.require(:event).permit(:date,:name,:addrline1,:addrline2,:description)
   end
 
   def user_organizer?
