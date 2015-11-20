@@ -11,22 +11,8 @@
 // about supported directives.
 //
 //= require jquery
+//= require materialize-sprockets
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree 
-//= require owl.carousel
+//= require_tree
 //= require jquery.slick
-
-var ready;
-ready = function() {
-
-$(".owl-carousel").owlCarousel();
-
-};
-
-$(document).ready(ready);
-$(document).on('page:load', ready);
-
-
-
-

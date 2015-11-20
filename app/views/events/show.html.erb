@@ -3,7 +3,7 @@
 <%=@event.date.strftime("%A %b %d")%>
 <p><%=@event.addrline1%></p>
 <p><%=@event.addrline2%></p>
-<% if @isOrganizer && (@user_rescued_unadopted-@assistingAnimals).length > 0 %>
+<% if (@user_rescued_unadopted-@assistingAnimals).length > 0 %>
   <%= form_for @event, method:'put' do %>
     <%= hidden_field_tag :action, 'addAnimal' %>
     <%= collection_check_boxes(:events,:animals,@user_rescued_unadopted-@assistingAnimals,:id,:name)%>

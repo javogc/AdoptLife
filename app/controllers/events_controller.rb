@@ -46,7 +46,7 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @isOrganizer = user_organizer?
-    @assistingAnimals = @event.animals
+    @assistingAnimals = @event.animals.where(rescuer: current_user)
     @user_rescued_unadopted = current_user.rescued_animals.where(adoptant_id: nil)
   end
 
